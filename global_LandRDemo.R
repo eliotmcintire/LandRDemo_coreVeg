@@ -9,7 +9,6 @@ repos <- c("predictiveecology.r-universe.dev", getOption("repos"))
 library(SpaDES.project)
 
 out <- setupProject(
-  useGit = "eliotmcintire",
   # INPUT OBJECTS -----------------------------------
   # these need to come *before* any formal arguments, as they are needed for params.R
   sppEquivCol = "Boreal",
@@ -18,10 +17,17 @@ out <- setupProject(
   eventCaching = c(".inputObjects", "init"),
   useParallel = FALSE,
   # overwrite = TRUE, # Just run this once. Then remove it.
+  useGit = "eliotmcintire",
   Restart = TRUE,
   # standAlone = TRUE,
   paths = list("packagePath" = "packages/",
                "projectPath" = "~/SpaDES_book/LandRDemo_coreVeg"),
+  modules = c(
+    "PredictiveEcology/Biomass_speciesData@main",
+    "PredictiveEcology/Biomass_borealDataPrep@main",
+    "PredictiveEcology/Biomass_speciesParameters@main",
+    "PredictiveEcology/Biomass_core@main"
+  ),
   packages = c(
     "googledrive",
     "httr",
@@ -44,12 +50,6 @@ out <- setupProject(
     "spades.moduleCodeChecks" = FALSE,
     "Require.cloneFrom" = Sys.getenv("R_LIBS_USER"),
     "repos" = unique(repos)
-  ),
-  modules = c(
-    "PredictiveEcology/Biomass_speciesData@main",
-    "PredictiveEcology/Biomass_borealDataPrep@main",
-    "PredictiveEcology/Biomass_speciesParameters@main",
-    "PredictiveEcology/Biomass_core@main"
   ),
   sideEffects = {
     googledriveAuthPath <- "~/SpaDES_book/googledrive_auth_cache"
