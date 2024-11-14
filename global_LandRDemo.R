@@ -54,7 +54,8 @@ out <- setupProject(
   sideEffects = {
     googledriveAuthPath <- "~/SpaDES_book/googledrive_auth_cache"
     dir.create(googledriveAuthPath, showWarnings = FALSE)
-    googledrive::drive_auth(cache = "~/SpaDES_book/googledrive_auth_cache")
+    if (!googledrive::drive_has_token())
+      googledrive::drive_auth(cache = "~/SpaDES_book/googledrive_auth_cache")
   },
   # SIMULATION SETUP ------------------------------------
   times = list(start = 2001, end = 2031),
@@ -66,7 +67,7 @@ out <- setupProject(
     list(
       "shadetolerance" = list(
         # Betu_Pap = 1
-        , Lari_Lar = 1
+        Lari_Lar = 1
         , Pice_Gla = 2
         , Pice_Mar = 3
         , Pinu_Ban = 1.5
